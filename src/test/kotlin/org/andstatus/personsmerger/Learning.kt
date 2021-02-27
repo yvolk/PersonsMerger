@@ -5,7 +5,15 @@ import org.junit.jupiter.api.Test
 class Learning {
     @Test
     fun learnModelOne() {
-        val firstModel: IdModel = IdModelOne()
+        learnModel(IdModelOne())
+    }
+
+    @Test
+    fun learnModelTwo() {
+        learnModel(IdModelTwo())
+    }
+
+    fun learnModel(firstModel: IdModel) {
         var generationNumber = 1
         var generation = emptyList<ModelResult>()
         var best = emptyList<ModelResult>()
@@ -19,7 +27,12 @@ class Learning {
             generation = allResults.takeLast(5000)
             best = (best + generation).sortedBy { it.successCount }.takeLast(1000)
 
-            println("---- Generation $generationNumber ---- from ${allResults.get(0).successCount} to  ${allResults.get(allResults.lastIndex).successCount}")
+            val sumFrom = allResults.minOfOrNull { it.personPairs.minOfOrNull { it.actualSum } ?: 0 } ?: 0
+            val sumTo = allResults.maxOfOrNull { it.personPairs.maxOfOrNull { it.actualSum } ?: 0 } ?: 0
+
+            println("---- Generation $generationNumber ---- from ${allResults.get(0).successCount} " +
+                    "to ${allResults.get(allResults.lastIndex).successCount}; " +
+                    "sum from $sumFrom to $sumTo")
             generation.takeLast(10).forEach {
                 it.printSummary()
             }

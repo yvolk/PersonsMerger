@@ -11,4 +11,11 @@ class ModelTest {
         result.print()
     }
 
+    @Test
+    fun testDefaultWeightsModelTwo() {
+        val model = IdModelTwo()
+        val result = ModelResult.evaluate(model)
+        result.print()
+    }
+
 }
