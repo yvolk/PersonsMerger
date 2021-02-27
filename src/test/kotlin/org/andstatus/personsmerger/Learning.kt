@@ -1,22 +1,17 @@
 package org.andstatus.personsmerger
 
 import org.junit.jupiter.api.Test
-import kotlin.random.Random
 
 class Learning {
-    val random = Random(1)
-
     @Test
-    fun learn() {
-        val model = IdModelOne()
-        val result = ModelResult.evaluate(model)
-
+    fun learnModelOne() {
+        val firstModel: IdModel = IdModelOne()
         var generationNumber = 1
         var generation = emptyList<ModelResult>()
         var best = emptyList<ModelResult>()
         do {
             val allResults = when (generationNumber) {
-                1 -> listOf(ModelResult.evaluate(model))
+                1 -> listOf(ModelResult.evaluate(firstModel))
                 else -> mutate(generation.map { it.model }, 10000)
                     .map(ModelResult::evaluate)
                     .sortedBy { it.successCount }
@@ -40,31 +35,16 @@ class Learning {
 
     }
 
-    private fun mutate(models: List<IdModelOne>, count: Int): List<IdModelOne> {
+    private fun mutate(models: List<IdModel>, count: Int): List<IdModel> {
         val countOne = count / models.size
         return models.fold(emptyList()) { acc, model ->
             acc + mutate(model, countOne)
         }
     }
 
-    private fun mutate(model: IdModelOne, count: Int): List<IdModelOne> {
+    private fun mutate(model: IdModel, count: Int): List<IdModel> {
         return (0 until count).fold(emptyList()) { acc, i ->
-            acc + mutateOne(model)
+            acc + model.mutate()
         }
     }
-
-    private fun mutateOne(model: IdModelOne): IdModelOne {
-        val indToMutate = random.nextInt(model.weights.size)
-        val weightToMutate = random.nextInt(ComparisonWeight.size)
-        val weights = model.weights.mapIndexed() { index, weight ->
-            if (index == indToMutate) weight.withWeightIndex(weightToMutate, mutateInt(weight[weightToMutate]))
-            else weight
-        }
-        return model.copy(weights = weights)
-    }
-
-    private fun mutateInt(value: Int): Int {
-        return value + random.nextInt(15) - 7
-    }
-
 }

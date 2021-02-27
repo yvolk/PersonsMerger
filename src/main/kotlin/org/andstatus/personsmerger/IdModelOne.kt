@@ -1,9 +1,11 @@
 package org.andstatus.personsmerger
 
-data class IdModelOne(val weights: List<ComparisonWeight>, val unknownMargin: Int, val trueMargin: Int) {
+import kotlin.random.Random
+
+data class IdModelOne (val weights: List<ComparisonWeight>, val unknownMargin: Int, val trueMargin: Int) : IdModel {
     constructor() : this(defaultWeights(), defaultUnknownMargin, defaultTrueMargin)
 
-    fun identify(first: Person, second: Person): IdResult {
+    override fun identify(first: Person, second: Person): IdResult {
         val sum = sum(first, second)
         val triResult = when {
             sum < unknownMargin -> TriResult.FALSE
@@ -14,7 +16,7 @@ data class IdModelOne(val weights: List<ComparisonWeight>, val unknownMargin: In
     }
 
 
-    fun sum(first: Person, second: Person): Int {
+    private fun sum(first: Person, second: Person): Int {
         return compareOne(first.firstName, second.firstName, 0) +
                 compareOne(first.secondName, second.secondName, 1) +
                 compareOne(first.lastName, second.lastName, 2) +
@@ -36,7 +38,22 @@ data class IdModelOne(val weights: List<ComparisonWeight>, val unknownMargin: In
         return if (first == second) weight.equalWeight else weight.differentWeight
     }
 
+    override fun mutate(): IdModelOne {
+        val indToMutate = random.nextInt(weights.size)
+        val weightToMutate = random.nextInt(ComparisonWeight.size)
+        val weights = weights.mapIndexed() { index, weight ->
+            if (index == indToMutate) weight.withWeightIndex(weightToMutate, mutateInt(weight[weightToMutate]))
+            else weight
+        }
+        return copy(weights = weights)
+    }
+
+    private fun mutateInt(value: Int): Int {
+        return value + random.nextInt(15) - 7
+    }
+
     companion object {
+        val random = Random(1)
         private val defaultUnknownMargin: Int = 40
         private val defaultTrueMargin: Int = 60
         private fun defaultWeights(): List<ComparisonWeight> {

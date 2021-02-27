@@ -1,6 +1,6 @@
 package org.andstatus.personsmerger
 
-data class ModelResult(val model: IdModelOne, val personPairs: List<PersonsPair>) {
+data class ModelResult(val model: IdModel, val personPairs: List<PersonsPair>) {
     val count = personPairs.size
     val successCount: Int = personPairs.count { it.success }
     val failureCount: Int = personPairs.count { it.failure }
@@ -26,7 +26,7 @@ data class ModelResult(val model: IdModelOne, val personPairs: List<PersonsPair>
     }
 
     companion object {
-        fun evaluate(model: IdModelOne): ModelResult =
+        fun evaluate(model: IdModel): ModelResult =
             ModelResult( model, PersonsData.data.fold(emptyList()) { acc, pair ->
                 val idResult = mergeDecision(model, pair.first, pair.second)
                 acc + pair.copy(actual = idResult.result, actualSum = idResult.sum)

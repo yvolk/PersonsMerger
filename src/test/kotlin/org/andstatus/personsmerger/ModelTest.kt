@@ -2,10 +2,10 @@ package org.andstatus.personsmerger
 
 import org.junit.jupiter.api.Test
 
-class MergeTest {
+class ModelTest {
 
     @Test
-    fun testDefaultWeights() {
+    fun testDefaultWeightsModelOne() {
         val model = IdModelOne()
         val result = ModelResult.evaluate(model)
         result.print()
