@@ -23,17 +23,20 @@ data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: I
                     denominator += it.comparisonWeight.equalWeight
                 }
                 ComparisonEnum.DIFFERENT -> {
+                    numerator += it.comparisonWeight.differentWeight
                     denominator += it.comparisonWeight.equalWeight
                 }
-                else -> {}
+                else -> {
+                    numerator += it.comparisonWeight.oneAbsentWeight
+                }
             }
         }
-        return if(denominator == 0) 0 else numerator * 100 / denominator
+        return if(denominator == 0) 0 else numerator * 200 / denominator
     }
 
     override fun mutate(): IdModelTwo {
         val indToMutate = random.nextInt(weights.size)
-        val weightToMutate = 0 // random.nextInt(ComparisonWeight.size)
+        val weightToMutate = random.nextInt(3)
         val weights = weights.mapIndexed() { index, weight ->
             if (index == indToMutate) weight.withWeightIndex(weightToMutate, mutateInt(weight[weightToMutate]))
             else weight
@@ -42,13 +45,13 @@ data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: I
     }
 
     private fun mutateInt(value: Int): Int {
-        return value + random.nextInt(3) - 1
+        return value + random.nextInt(7) - 3
     }
 
     companion object {
         val random = Random(1)
-        private val defaultUnknownMargin: Int = 75
-        private val defaultTrueMargin: Int = 85
+        private val defaultUnknownMargin: Int = 140
+        private val defaultTrueMargin: Int = 163
         private fun defaultWeights(): List<ComparisonWeight> {
             return (0 .. 10).fold(emptyList()) { acc, i ->
                 acc + ComparisonWeight(10, 0, 0, 0)

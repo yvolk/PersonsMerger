@@ -38,11 +38,11 @@ class Learning {
             }
 
             generationNumber++
-        } while (generationNumber < 525)
+        } while (generationNumber < 100)
 
         println("---- Best 5 ----")
         best.takeLast(5).forEach {
-            it.printSummary()
+            it.print()
             println(it.model)
         }
 
