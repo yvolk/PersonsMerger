@@ -30,8 +30,8 @@ class Learning {
             val sumFrom = allResults.minOfOrNull { it.personPairs.minOfOrNull { it.actualSum } ?: 0 } ?: 0
             val sumTo = allResults.maxOfOrNull { it.personPairs.maxOfOrNull { it.actualSum } ?: 0 } ?: 0
 
-            println("---- Generation $generationNumber ---- from ${allResults.get(0).successCount} " +
-                    "to ${allResults.get(allResults.lastIndex).successCount}; " +
+            println("---- Generation $generationNumber ---- from ${allResults.get(allResults.lastIndex).failureCount} " +
+                    "to ${allResults.get(0).failureCount}; " +
                     "sum from $sumFrom to $sumTo")
             generation.takeLast(10).forEach {
                 it.printSummary()
