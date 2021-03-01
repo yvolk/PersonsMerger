@@ -38,7 +38,7 @@ class Learning {
             }
 
             generationNumber++
-        } while (generationNumber < 100)
+        } while (generationNumber < 180)
 
         println("---- Best 5 ----")
         best.takeLast(5).forEach {

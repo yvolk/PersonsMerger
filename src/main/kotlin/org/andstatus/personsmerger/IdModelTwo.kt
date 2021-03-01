@@ -20,14 +20,18 @@ data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: I
             when(it.comparisonEnum) {
                 ComparisonEnum.EQUAL -> {
                     numerator += it.comparisonWeight.equalWeight
-                    denominator += it.comparisonWeight.equalWeight
+                    denominator += it.comparisonWeight.noneWeight
                 }
                 ComparisonEnum.DIFFERENT -> {
                     numerator += it.comparisonWeight.differentWeight
-                    denominator += it.comparisonWeight.equalWeight
+                    denominator += it.comparisonWeight.noneWeight
+                }
+                ComparisonEnum.ONE_ABSENT -> {
+                    numerator += it.comparisonWeight.oneAbsentWeight
+                    denominator += it.comparisonWeight.noneWeight
                 }
                 else -> {
-                    numerator += it.comparisonWeight.oneAbsentWeight
+                    // numerator += it.comparisonWeight.noneWeight
                 }
             }
         }
@@ -50,11 +54,11 @@ data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: I
 
     companion object {
         val random = Random(1)
-        private val defaultUnknownMargin: Int = 140
+        private val defaultUnknownMargin: Int = 131
         private val defaultTrueMargin: Int = 163
         private fun defaultWeights(): List<ComparisonWeight> {
             return (0 .. 10).fold(emptyList()) { acc, i ->
-                acc + ComparisonWeight(10, 0, 0, 0)
+                acc + ComparisonWeight(10, 0, 0, 10)
             }
         }
     }

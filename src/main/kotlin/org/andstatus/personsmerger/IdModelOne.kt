@@ -26,7 +26,7 @@ data class IdModelOne (val weights: List<ComparisonWeight>, val unknownMargin: I
     }
 
     private fun mutateInt(value: Int): Int {
-        return value + random.nextInt(15) - 7
+        return value + random.nextInt(7) - 3
     }
 
     companion object {
