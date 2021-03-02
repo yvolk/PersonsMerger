@@ -18,10 +18,11 @@ data class ModelResult(val model: IdModel, val personPairs: List<PersonsPair>) {
     }
 
     fun printSummary() {
+        val sumsText = "sums: ${personPairs.minOf { it.actualSum }} to ${personPairs.maxOf { it.actualSum }}"
         if (failureCount == 0) {
-            println("Success! $successCount cases")
+            println("Success $successCount cases, $sumsText")
         } else {
-            println("Failed $failureCount of $count cases")
+            println("Failed  $failureCount of $count cases, $sumsText")
         }
     }
 

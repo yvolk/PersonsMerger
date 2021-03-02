@@ -5,15 +5,18 @@ import org.junit.jupiter.api.Test
 class ModelTest {
 
     @Test
-    fun testDefaultWeightsModelOne() {
-        val model = IdModelOne()
-        val result = ModelResult.evaluate(model)
-        result.print()
-    }
+    fun testDefaultWeightsModelOne() = testIdModel(IdModelOne())
 
     @Test
-    fun testDefaultWeightsModelTwo() {
-        val model = IdModelTwo()
+    fun testTrainedModelOne() = testIdModel(IdModelOne.trained)
+
+    @Test
+    fun testDefaultWeightsModelTwo() = testIdModel(IdModelTwo())
+
+    @Test
+    fun testTrainedModelTwo() = testIdModel(IdModelTwo.trained)
+
+    private fun testIdModel(model: IdModel) {
         val result = ModelResult.evaluate(model)
         result.print()
     }
