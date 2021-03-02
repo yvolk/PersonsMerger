@@ -1,5 +1,6 @@
 package org.andstatus.personsmerger
 import org.andstatus.personsmerger.TriResult.*
+import org.junit.jupiter.api.Test
 
 object PersonsData {
     val data: List<PersonsPair> = listOf(
@@ -1279,4 +1280,20 @@ object PersonsData {
         ),
 
     )
+
+}
+
+class testPersonsData {
+    @Test
+    fun printAsCsv() {
+        println("id,expected,firstName,secondName,lastName,birthday,passport,inp,innRf,innForeign,snils,addressRf,addressForeign")
+        for (d in PersonsData.data) {
+            with(d.first) {
+                println("${d.caseId},${d.expected},$firstName,$secondName,$lastName,$birthday,$passport,$inp,$innRf,$innForeign,$snils,$addressRf,$addressForeign")
+            }
+            with(d.second) {
+                println("-,-,$firstName,$secondName,$lastName,$birthday,$passport,$inp,$innRf,$innForeign,$snils,$addressRf,$addressForeign")
+            }
+        }
+    }
 }

@@ -6,7 +6,7 @@ data class ComparisonWeight(val equalWeight: Int, val differentWeight: Int, val 
         return when(index) {
             0 -> copy( equalWeight = value)
             1 -> copy( differentWeight = value)
-            3 -> copy( oneAbsentWeight = value)
+            2 -> copy( oneAbsentWeight = value)
             else -> copy( noneWeight = value)
         }
     }
@@ -14,7 +14,7 @@ data class ComparisonWeight(val equalWeight: Int, val differentWeight: Int, val 
     operator fun get(index: Int): Int = when(index) {
         0 -> equalWeight
         1 -> differentWeight
-        3 -> oneAbsentWeight
+        2 -> oneAbsentWeight
         else -> noneWeight
     }
 
