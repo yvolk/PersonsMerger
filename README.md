@@ -8,7 +8,7 @@ and when to decide that this is "unknown" to the system and maybe needs manual d
 
 The automatic decisions are taken using *trained models* that are obtained with an 
 [Evolutionary algorithm](https://en.wikipedia.org/wiki/Evolutionary_algorithm) 
-that uses default values for initial models and then iteratively, 
+that uses default values of *weights* for initial models and then iteratively, 
 generation by generation, breeds better models, applying mutation and selection 
 at each iteration.
 
