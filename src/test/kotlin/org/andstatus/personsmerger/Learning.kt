@@ -1,6 +1,7 @@
 package org.andstatus.personsmerger
 
 import org.junit.jupiter.api.Test
+import kotlin.test.assertTrue
 
 class Learning {
     @Test
@@ -55,6 +56,7 @@ class Learning {
             println(it.model)
         }
 
+        assertTrue(best.last().isSuccess, "The best model should be a success")
     }
 
     private fun mutate(models: List<IdModel>, count: Int): List<IdModel> {

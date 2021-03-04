@@ -4,6 +4,7 @@ data class ModelResult(val model: IdModel, val personPairs: List<PersonsPair>) {
     val count = personPairs.size
     val successCount: Int = personPairs.count { it.success }
     val failureCount: Int = personPairs.count { it.failure }
+    val isSuccess: Boolean get() = failureCount == 0
 
     fun print() {
         printSummary()
