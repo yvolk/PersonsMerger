@@ -21,4 +21,6 @@ interface IdModel {
                 OneResult(ComparisonEnum.compare(first.addressForeign, second.addressForeign), weights[10])
     }
 
+    fun success(expected: TriResult, idResult: IdResult): Boolean = idResult.result == expected
+    fun fitness(expected: TriResult, idResult: IdResult): Long = if (success(expected, idResult)) 1 else 0
 }

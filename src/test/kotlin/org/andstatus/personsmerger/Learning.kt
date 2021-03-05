@@ -16,6 +16,9 @@ class Learning {
     @Test
     fun learnModelTwoTrained() = learnModel(IdModelTwo.trained, 10)
 
+    @Test
+    fun learnModelThree() = learnModel(IdModelThree(), 180)
+
     fun learnModel(firstModel: IdModel, numGenerations: Int) {
         var generationNumber = 1
         var generation = emptyList<ModelResult>()
@@ -25,10 +28,10 @@ class Learning {
                 1 -> listOf(ModelResult.evaluate(firstModel))
                 else -> mutate(generation.map { it.model }, 10000)
                     .map(ModelResult::evaluate)
-                    .sortedBy { it.successCount }
+                    .sortedBy { it.fitness }
             }
             generation = allResults.takeLast(5000)
-            best = (best + generation).sortedBy { it.successCount }.takeLast(1000)
+            best = (best + generation).sortedBy { it.fitness }.takeLast(1000)
 
             val sumFrom = allResults.minOfOrNull { it.personPairs.minOfOrNull { it.actualSum } ?: 0 } ?: 0
             val sumTo = allResults.maxOfOrNull { it.personPairs.maxOfOrNull { it.actualSum } ?: 0 } ?: 0
@@ -36,7 +39,8 @@ class Learning {
             val failuresCount = allResults.count{ it.failureCount > 0 }
             println(
                 "---- Generation $generationNumber ---- " +
-                (if (failuresCount == 0) "All succeeded"
+                (if (failuresCount == 0) "All succeeded, fitness: " +
+                        "${allResults.get(0).fitness} - ${allResults.get(allResults.lastIndex).fitness}"
                     else "Models failed: $failuresCount, Cases failed: " +
                         "${allResults.get(allResults.lastIndex).failureCount} - ${allResults.get(0).failureCount}"
                 ) +
@@ -50,10 +54,10 @@ class Learning {
             generationNumber++
         } while (generationNumber <= numGenerations)
 
-        println("---- Best 5 ----")
+        println("\n---- Best 5 ----------")
         best.takeLast(5).forEach {
+            println()
             it.print()
-            println(it.model)
         }
 
         assertTrue(best.last().isSuccess, "The best model should be a success")

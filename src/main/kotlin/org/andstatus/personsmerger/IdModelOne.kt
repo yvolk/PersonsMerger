@@ -55,22 +55,5 @@ data class IdModelOne (val weights: List<ComparisonWeight>, val unknownMargin: I
             ),
             unknownMargin = 40, trueMargin = 60
         )
-
-        val trained2: IdModelOne = IdModelOne(
-            weights = listOf(
-                ComparisonWeight(equalWeight = 10, differentWeight = -15, oneAbsentWeight = -4, noneWeight = 4),
-                ComparisonWeight(equalWeight = 10, differentWeight = -6, oneAbsentWeight = 8, noneWeight = 9),
-                ComparisonWeight(equalWeight = 10, differentWeight = -6, oneAbsentWeight = 0, noneWeight = -5),
-                ComparisonWeight(equalWeight = 11, differentWeight = -3, oneAbsentWeight = -10, noneWeight = 3),
-                ComparisonWeight(equalWeight = 16, differentWeight = -6, oneAbsentWeight = -1, noneWeight = -5),
-                ComparisonWeight(equalWeight = 7, differentWeight = -5, oneAbsentWeight = 1, noneWeight = 6),
-                ComparisonWeight(equalWeight = 15, differentWeight = -5, oneAbsentWeight = 1, noneWeight = 3),
-                ComparisonWeight(equalWeight = 13, differentWeight = -7, oneAbsentWeight = -2, noneWeight = 1),
-                ComparisonWeight(equalWeight = 12, differentWeight = -11, oneAbsentWeight = 6, noneWeight = 2),
-                ComparisonWeight(equalWeight = 10, differentWeight = -7, oneAbsentWeight = -1, noneWeight = 0),
-                ComparisonWeight(equalWeight = 11, differentWeight = -7, oneAbsentWeight = -2, noneWeight = 1)
-            ),
-            unknownMargin = 40, trueMargin = 60
-        )
     }
 }

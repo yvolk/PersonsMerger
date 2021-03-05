@@ -17,6 +17,12 @@ class ModelTest {
     @Test
     fun testTrainedModelTwo() = testIdModel(IdModelTwo.trained, true)
 
+    @Test
+    fun testDefaultWeightsModelThree() = testIdModel(IdModelThree())
+
+    @Test
+    fun testTrainedModelThree() = testIdModel(IdModelThree.trained, true)
+
     private fun testIdModel(model: IdModel, shouldBeASuccess: Boolean = false) {
         val result = ModelResult.evaluate(model)
         result.print()
