@@ -5,11 +5,11 @@ data class Person(
     val secondName: String?,
     val lastName: String?,
     val birthday: String?,
-    val passport: String?,
-    val inp: String?,
-    val innRf: String?,
-    val innForeign: String?,
-    val snils: String?,
-    val addressRf: String?,
-    val addressForeign: String?
+    val passportOne: String?,
+    val passportTwo: String?,
+    val idOne: String?,
+    val idTwo: String?,
+    val insId: String?,
+    val addressOne: String?,
+    val addressTwo: String?
     )

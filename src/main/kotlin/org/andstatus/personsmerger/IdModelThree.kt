@@ -27,17 +27,17 @@ data class IdModelThree(val model: IdModelOne) : IdModel by model {
     companion object {
         val trained: IdModelThree = IdModelThree(IdModelOne(
             weights = listOf(
-                ComparisonWeight(equalWeight=9, differentWeight=-16, oneAbsentWeight=-2, noneWeight=0),
-                ComparisonWeight(equalWeight=12, differentWeight=-4, oneAbsentWeight=9, noneWeight=7),
-                ComparisonWeight(equalWeight=10, differentWeight=-9, oneAbsentWeight=-3, noneWeight=-5),
-                ComparisonWeight(equalWeight=11, differentWeight=-4, oneAbsentWeight=-12, noneWeight=1),
-                ComparisonWeight(equalWeight=18, differentWeight=-5, oneAbsentWeight=-1, noneWeight=-10),
-                ComparisonWeight(equalWeight=9, differentWeight=-5, oneAbsentWeight=1, noneWeight=-2),
-                ComparisonWeight(equalWeight=15, differentWeight=-8, oneAbsentWeight=-1, noneWeight=-1),
-                ComparisonWeight(equalWeight=17, differentWeight=-4, oneAbsentWeight=0, noneWeight=0),
-                ComparisonWeight(equalWeight=10, differentWeight=-14, oneAbsentWeight=4, noneWeight=0),
-                ComparisonWeight(equalWeight=11, differentWeight=-8, oneAbsentWeight=0, noneWeight=0),
-                ComparisonWeight(equalWeight=11, differentWeight=-5, oneAbsentWeight=-4, noneWeight=2)
+                ComparisonWeight(equalWeight = 12, differentWeight = -16, oneAbsentWeight = -3, noneWeight = 0),
+                ComparisonWeight(equalWeight = 10, differentWeight = -6, oneAbsentWeight = 6, noneWeight = 1),
+                ComparisonWeight(equalWeight = 10, differentWeight = -11, oneAbsentWeight = -5, noneWeight = 0),
+                ComparisonWeight(equalWeight = 13, differentWeight = -4, oneAbsentWeight = -10, noneWeight = -5),
+                ComparisonWeight(equalWeight = 15, differentWeight = -9, oneAbsentWeight = 2, noneWeight = -4),
+                ComparisonWeight(equalWeight = 7, differentWeight = -5, oneAbsentWeight = -2, noneWeight = 3),
+                ComparisonWeight(equalWeight = 14, differentWeight = -12, oneAbsentWeight = -3, noneWeight = 1),
+                ComparisonWeight(equalWeight = 16, differentWeight = -8, oneAbsentWeight = 0, noneWeight = 4),
+                ComparisonWeight(equalWeight = 13, differentWeight = -13, oneAbsentWeight = 6, noneWeight = 8),
+                ComparisonWeight(equalWeight = 16, differentWeight = -3, oneAbsentWeight = 2, noneWeight = 0),
+                ComparisonWeight(equalWeight = 15, differentWeight = -5, oneAbsentWeight = 7, noneWeight = -1)
             ),
             unknownMargin = 40, trueMargin = 60
         ))

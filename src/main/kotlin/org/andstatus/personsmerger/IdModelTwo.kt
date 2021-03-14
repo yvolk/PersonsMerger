@@ -2,7 +2,7 @@ package org.andstatus.personsmerger
 
 import kotlin.random.Random
 
-data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: Int, val trueMargin: Int) : IdModel {
+data class IdModelTwo(val weights: List<ComparisonWeight>, val unknownMargin: Int, val trueMargin: Int) : IdModel {
     constructor() : this(defaultWeights(), defaultUnknownMargin, defaultTrueMargin)
 
     override fun identify(first: Person, second: Person): IdResult {
@@ -17,7 +17,7 @@ data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: I
         var numerator: Int = 0
         var denominator: Int = 0
         results.forEach {
-            when(it.comparisonEnum) {
+            when (it.comparisonEnum) {
                 ComparisonEnum.EQUAL -> {
                     numerator += it.comparisonWeight.equalWeight
                     denominator += it.comparisonWeight.noneWeight
@@ -35,7 +35,7 @@ data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: I
                 }
             }
         }
-        return if(denominator == 0) 0 else numerator * 200 / denominator
+        return if (denominator == 0) 0 else numerator * 200 / denominator
     }
 
     override fun mutate(): IdModelTwo {
@@ -57,24 +57,24 @@ data class IdModelTwo (val weights: List<ComparisonWeight>, val unknownMargin: I
         private val defaultUnknownMargin: Int = 131
         private val defaultTrueMargin: Int = 163
         private fun defaultWeights(): List<ComparisonWeight> {
-            return (0 .. 10).fold(emptyList()) { acc, i ->
+            return (0..10).fold(emptyList()) { acc, i ->
                 acc + ComparisonWeight(10, 0, 0, 10)
             }
         }
 
         val trained: IdModelTwo = IdModelTwo(
             weights = listOf(
-                ComparisonWeight(equalWeight = 18, differentWeight = 0, oneAbsentWeight = 0, noneWeight = 8),
-                ComparisonWeight(equalWeight = 3, differentWeight = -13, oneAbsentWeight = 0, noneWeight = 11),
-                ComparisonWeight(equalWeight = 11, differentWeight = -1, oneAbsentWeight = 0, noneWeight = 9),
-                ComparisonWeight(equalWeight = 16, differentWeight = 6, oneAbsentWeight = 0, noneWeight = 10),
-                ComparisonWeight(equalWeight = 16, differentWeight = 2, oneAbsentWeight = 0, noneWeight = 13),
-                ComparisonWeight(equalWeight = 9, differentWeight = 1, oneAbsentWeight = 0, noneWeight = 13),
-                ComparisonWeight(equalWeight = 11, differentWeight = -5, oneAbsentWeight = 0, noneWeight = 7),
-                ComparisonWeight(equalWeight = 11, differentWeight = -5, oneAbsentWeight = 0, noneWeight = 8),
-                ComparisonWeight(equalWeight = 5, differentWeight = -14, oneAbsentWeight = 0, noneWeight = 7),
-                ComparisonWeight(equalWeight = 15, differentWeight = 1, oneAbsentWeight = 0, noneWeight = 6),
-                ComparisonWeight(equalWeight = 10, differentWeight = -4, oneAbsentWeight = 0, noneWeight = -1)
+                ComparisonWeight(equalWeight = 12, differentWeight = -8, oneAbsentWeight = -3, noneWeight = 10),
+                ComparisonWeight(equalWeight = 8, differentWeight = -7, oneAbsentWeight = 6, noneWeight = 10),
+                ComparisonWeight(equalWeight = 11, differentWeight = -2, oneAbsentWeight = 8, noneWeight = 10),
+                ComparisonWeight(equalWeight = 14, differentWeight = 3, oneAbsentWeight = 0, noneWeight = 10),
+                ComparisonWeight(equalWeight = 14, differentWeight = -3, oneAbsentWeight = 6, noneWeight = 10),
+                ComparisonWeight(equalWeight = 8, differentWeight = -1, oneAbsentWeight = 5, noneWeight = 10),
+                ComparisonWeight(equalWeight = 10, differentWeight = -4, oneAbsentWeight = 0, noneWeight = 10),
+                ComparisonWeight(equalWeight = 10, differentWeight = -5, oneAbsentWeight = 0, noneWeight = 10),
+                ComparisonWeight(equalWeight = 15, differentWeight = -4, oneAbsentWeight = 9, noneWeight = 10),
+                ComparisonWeight(equalWeight = 16, differentWeight = 5, oneAbsentWeight = 10, noneWeight = 10),
+                ComparisonWeight(equalWeight = 17, differentWeight = 4, oneAbsentWeight = -4, noneWeight = 10)
             ),
             unknownMargin = 131, trueMargin = 163
         )
