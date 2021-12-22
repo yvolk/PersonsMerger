@@ -1,25 +1,26 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.4.30"
+    kotlin("jvm") version "1.5.31"
     application
 }
 
 group = "org.andstatus"
-version = "1.0-SNAPSHOT"
+version = "1.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.5.31")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 
 tasks.test {
     useJUnitPlatform()
+    maxHeapSize = "2048m"
 }
 
 tasks.withType<KotlinCompile>() {

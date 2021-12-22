@@ -15,7 +15,9 @@ data class IdModelOne(val weights: List<ComparisonWeight>, val unknownMargin: In
         return compare(first, second, weights).sumOf { it.comparisonWeight[it.comparisonEnum.index] }
     }
 
-    override fun mutate(): IdModelOne {
+    override fun mutate(): IdModelOne = oneMutate().oneMutate().oneMutate()
+
+    private fun oneMutate(): IdModelOne {
         val indToMutate = random.nextInt(weights.size)
         val weightToMutate = random.nextInt(ComparisonWeight.size)
         val weights = weights.mapIndexed() { index, weight ->

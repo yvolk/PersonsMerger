@@ -5,7 +5,16 @@ data class ModelResult(val model: IdModel, val personPairs: List<PersonsPair>) {
     val failureCount: Int get() = personPairs.count { it.failure }
     val isSuccess: Boolean get() = failureCount == 0
 
-    fun print() {
+    fun printAll() {
+        printModelAndFailures()
+        println("---- all -------------")
+        personPairs.forEach {
+            println("${it.caseId}. ${it.actualSum} ${ if (it.success) "success" else "failure"}," +
+                    " expected ${it.expected}, was ${it.actual} ")
+        }
+    }
+
+    fun printModelAndFailures() {
         printSummary()
         println(model)
         if (failureCount > 0) {
@@ -13,11 +22,6 @@ data class ModelResult(val model: IdModel, val personPairs: List<PersonsPair>) {
             personPairs.filter { it.failure }.forEach {
                 println("${it.caseId}. ${it.actualSum} failure, expected ${it.expected}, was ${it.actual} ")
             }
-        }
-        println("---- all -------------")
-        personPairs.forEach {
-            println("${it.caseId}. ${it.actualSum} ${ if (it.success) "success" else "failure"}," +
-                    " expected ${it.expected}, was ${it.actual} ")
         }
     }
 

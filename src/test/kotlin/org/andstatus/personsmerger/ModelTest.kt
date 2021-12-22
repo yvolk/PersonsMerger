@@ -6,18 +6,6 @@ import kotlin.test.assertTrue
 class ModelTest {
 
     @Test
-    fun testDefaultWeightsModelOne() = testIdModel(IdModelOne())
-
-    @Test
-    fun testTrainedModelOne() = testIdModel(IdModelOne.trained, true)
-
-    @Test
-    fun testDefaultWeightsModelTwo() = testIdModel(IdModelTwo())
-
-    @Test
-    fun testTrainedModelTwo() = testIdModel(IdModelTwo.trained, true)
-
-    @Test
     fun testDefaultWeightsModelThree() = testIdModel(IdModelThree())
 
     @Test
@@ -25,7 +13,7 @@ class ModelTest {
 
     private fun testIdModel(model: IdModel, shouldBeASuccess: Boolean = false) {
         val result = ModelResult.evaluate(model)
-        result.print()
+        result.printAll()
         if (shouldBeASuccess) {
             assertTrue(result.isSuccess, "The model should be a success")
         }

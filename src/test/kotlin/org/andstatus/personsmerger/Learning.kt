@@ -1,23 +1,16 @@
 package org.andstatus.personsmerger
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Timeout
 import kotlin.test.assertTrue
 
+@Timeout(10000)
 class Learning {
     @Test
-    fun learnModelOne() = learnModel(IdModelOne(), 180)
+    fun learnModelThree() = learnModel(IdModelThree(), 1500)
 
     @Test
-    fun learnModelOneTrained() = learnModel(IdModelOne.trained, 10)
-
-    @Test
-    fun learnModelTwo() = learnModel(IdModelTwo(), 180)
-
-    @Test
-    fun learnModelTwoTrained() = learnModel(IdModelTwo.trained, 10)
-
-    @Test
-    fun learnModelThree() = learnModel(IdModelThree(), 180)
+    fun learnModelThreeTrained() = learnModel(IdModelThree.trained, 1500)
 
     fun learnModel(firstModel: IdModel, numGenerations: Int) {
         var generationNumber = 1
@@ -51,13 +44,18 @@ class Learning {
                 it.printSummary()
             }
 
+            if (generationNumber % 50 == 0) {
+                println("\n---- The best after $generationNumber generations ----")
+                best.lastOrNull()?.printModelAndFailures()
+            }
+
             generationNumber++
         } while (generationNumber <= numGenerations)
 
         println("\n---- Best 5 ----------")
         best.takeLast(5).forEach {
             println()
-            it.print()
+            it.printAll()
         }
 
         assertTrue(best.last().isSuccess, "The best model should be a success")

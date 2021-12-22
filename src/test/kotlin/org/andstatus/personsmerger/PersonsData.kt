@@ -1542,7 +1542,7 @@ object PersonsData {
 
 }
 
-class testPersonsData {
+class PersonsDataTest {
     @Test
     fun printPersonsDataAsCsv() {
         printAsCsv(PersonsData.data)
