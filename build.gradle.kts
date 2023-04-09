@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.31"
+    kotlin("jvm") version "1.6.21"
     application
 }
 
@@ -13,20 +13,29 @@ repositories {
 }
 
 dependencies {
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.5.31")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.6.21")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.0")
 }
 
 tasks.test {
     useJUnitPlatform()
-    maxHeapSize = "2048m"
+    maxHeapSize = "4000m"
 }
 
-tasks.withType<KotlinCompile>() {
+task<Test>(name = "shortTests") {
+    group = "verification"
+    useJUnitPlatform {
+        excludeTags("longTests")
+    }
+    maxHeapSize = "4000m"
+}
+
+tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
 }
 
 application {
-    mainClassName = "MainKt"
+    mainClass.set("MainKt")
 }

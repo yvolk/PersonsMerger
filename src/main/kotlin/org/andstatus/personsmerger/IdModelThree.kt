@@ -1,87 +1,39 @@
 package org.andstatus.personsmerger
 
-data class IdModelThree(val model: IdModelOne) : IdModel by model {
-    constructor(): this(IdModelOne())
+import org.andstatus.personsmerger.Fitness.fitness7
 
-    override fun success(expected: TriResult, idResult: IdResult): Boolean =
-        expected == idResult.result
+data class IdModelThree(
+    override val weights: List<ComparisonWeight>,
+    override val unknownMargin: Int,
+    override val trueMargin: Int
+) :
+    IdModel<IdModelThree> {
+    constructor(weightsSize: Int = 11) : this(
+        IdModel.defaultWeights(weightsSize),
+        IdModel.defaultUnknownMargin,
+        IdModel.defaultTrueMargin
+    )
 
-    override fun fitness(expected: TriResult, idResult: IdResult): Long = fitness3(expected, idResult)
+    override fun copyMe(weightsNew: List<ComparisonWeight>) = copy(weights = weightsNew)
 
-    fun fitness3(expected: TriResult, idResult: IdResult): Long = when (expected) {
-        TriResult.TRUE -> when (idResult.result) {
-            TriResult.FALSE -> 1L * model.trueMargin - (model.trueMargin - idResult.sum)
-            TriResult.UNKNOWN -> 100L * model.trueMargin - (model.trueMargin - idResult.sum)
-            TriResult.TRUE -> 100000L * model.trueMargin
-        }
-        TriResult.FALSE -> when (idResult.result) {
-            TriResult.FALSE -> 1000000L * model.trueMargin
-            TriResult.UNKNOWN -> 10000L * model.trueMargin - (idResult.sum - model.unknownMargin)
-            TriResult.TRUE -> 1L * model.trueMargin - (idResult.sum - model.unknownMargin)
-        }
-        TriResult.UNKNOWN -> when (idResult.result) {
-            TriResult.FALSE -> 1000L * model.trueMargin - (model.unknownMargin - idResult.sum)
-            TriResult.UNKNOWN -> 100000L * model.trueMargin
-            TriResult.TRUE -> 10L * model.trueMargin - (idResult.sum - model.trueMargin)
-        }
-    }
-
-    fun fitness2(expected: TriResult, idResult: IdResult): Long = when (expected) {
-        TriResult.TRUE -> when (idResult.result) {
-            TriResult.FALSE -> 1L * model.trueMargin - (model.trueMargin - idResult.sum)
-            TriResult.UNKNOWN -> 100L * model.trueMargin - (model.trueMargin - idResult.sum)
-            TriResult.TRUE -> 10000L * model.trueMargin
-        }
-        TriResult.FALSE -> when (idResult.result) {
-            TriResult.FALSE -> 10000L * model.trueMargin
-            TriResult.UNKNOWN -> 100L * model.trueMargin - (idResult.sum - model.unknownMargin)
-            TriResult.TRUE -> 1L * model.trueMargin - (idResult.sum - model.unknownMargin)
-        }
-        TriResult.UNKNOWN -> when (idResult.result) {
-            TriResult.FALSE -> 100L * model.trueMargin - (model.unknownMargin - idResult.sum)
-            TriResult.UNKNOWN -> 10000L * model.trueMargin
-            TriResult.TRUE -> 100L * model.trueMargin - (idResult.sum - model.trueMargin)
-        }
-    }
-
-    fun fitness1(expected: TriResult, idResult: IdResult): Long = when(expected) {
-        TriResult.TRUE -> when (idResult.result) {
-            TriResult.FALSE -> 0
-            TriResult.UNKNOWN -> 1000
-            TriResult.TRUE -> 1000000
-        }
-        TriResult.FALSE -> when(idResult.result) {
-            TriResult.FALSE -> 1000000
-            TriResult.UNKNOWN -> 1000
-            TriResult.TRUE -> 0
-        }
-        TriResult.UNKNOWN -> when(idResult.result) {
-            TriResult.FALSE -> 1000
-            TriResult.UNKNOWN -> 1000000
-            TriResult.TRUE -> 0
-        }
-    }
-
-    override fun mutate(): IdModel = IdModelThree(model.mutate())
+    override fun fitness(expected: TriResult, idResult: IdResult): Long = fitness7(expected, idResult)
 
     companion object {
-        val trained: IdModelThree = IdModelThree(
-            IdModelOne(
-                weights = listOf(
-                    ComparisonWeight(equalWeight = 18, differentWeight = -12, oneAbsentWeight = 13, noneWeight = -4),
-                    ComparisonWeight(equalWeight = 4, differentWeight = -21, oneAbsentWeight = 1, noneWeight = -5),
-                    ComparisonWeight(equalWeight = 10, differentWeight = -10, oneAbsentWeight = -7, noneWeight = -9),
-                    ComparisonWeight(equalWeight = 10, differentWeight = -9, oneAbsentWeight = -21, noneWeight = -1),
-                    ComparisonWeight(equalWeight = 17, differentWeight = -9, oneAbsentWeight = 9, noneWeight = -19),
-                    ComparisonWeight(equalWeight = 15, differentWeight = -1, oneAbsentWeight = 11, noneWeight = 11),
-                    ComparisonWeight(equalWeight = 16, differentWeight = -9, oneAbsentWeight = -4, noneWeight = -1),
-                    ComparisonWeight(equalWeight = 16, differentWeight = -9, oneAbsentWeight = -2, noneWeight = 1),
-                    ComparisonWeight(equalWeight = 7, differentWeight = -27, oneAbsentWeight = -1, noneWeight = 2),
-                    ComparisonWeight(equalWeight = 21, differentWeight = -4, oneAbsentWeight = 1, noneWeight = 6),
-                    ComparisonWeight(equalWeight = 19, differentWeight = -2, oneAbsentWeight = -3, noneWeight = 2)
-                ),
-                unknownMargin = 40, trueMargin = 60
-            )
+        val trainedFitness7: IdModelThree = IdModelThree(
+            weights = listOf(
+                ComparisonWeight(equalWeight = 8, differentWeight = -50, oneAbsentWeight = -17, noneWeight = -26),
+                ComparisonWeight(equalWeight = 37, differentWeight = -20, oneAbsentWeight = -15, noneWeight = 37),
+                ComparisonWeight(equalWeight = 16, differentWeight = -20, oneAbsentWeight = -60, noneWeight = -50),
+                ComparisonWeight(equalWeight = 20, differentWeight = -15, oneAbsentWeight = -278, noneWeight = 103),
+                ComparisonWeight(equalWeight = 42, differentWeight = -11, oneAbsentWeight = 119, noneWeight = 57),
+                ComparisonWeight(equalWeight = 18, differentWeight = -17, oneAbsentWeight = -11, noneWeight = -39),
+                ComparisonWeight(equalWeight = 10, differentWeight = -36, oneAbsentWeight = -17, noneWeight = -23),
+                ComparisonWeight(equalWeight = 26, differentWeight = -20, oneAbsentWeight = -2, noneWeight = -8),
+                ComparisonWeight(equalWeight = 30, differentWeight = -14, oneAbsentWeight = -6, noneWeight = -52),
+                ComparisonWeight(equalWeight = 0, differentWeight = -3, oneAbsentWeight = -49, noneWeight = 13),
+                ComparisonWeight(equalWeight = 0, differentWeight = -3, oneAbsentWeight = 16, noneWeight = 14),
+            ),
+            unknownMargin = -50, trueMargin = 50
         )
     }
 }
